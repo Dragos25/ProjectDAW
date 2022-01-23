@@ -36,7 +36,10 @@ namespace DAW_Project
             #region Repositories
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IUserRepository, UserRepository>();
-            
+            services.AddTransient<IAuthorRepository, AuthorRepository>();
+            services.AddTransient<IBookRepository, BookRepository>();
+            services.AddTransient<IPublisherRepository, PublisherRepository>();
+
             #endregion
 
             services.AddControllers();

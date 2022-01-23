@@ -14,6 +14,9 @@ namespace DAW_Project.Context
         {
         }
         public DbSet<User> Users { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Publisher> Publishers { get; set; }
+        public DbSet<Book> Books { get; set; }
         public async Task<int> SaveChanges()
         {
             return await base.SaveChangesAsync();
