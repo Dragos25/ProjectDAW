@@ -1,8 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>DAW_Project</RootNamespace>
+    <ApplicationIcon />
+    <Win32Resource />
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
