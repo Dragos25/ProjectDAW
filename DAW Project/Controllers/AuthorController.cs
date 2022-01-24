@@ -6,6 +6,7 @@ using DAW_Project.Context;
 using DAW_Project.Interfaces;
 using DAW_Project.Models;
 using DAW_Project.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -49,6 +50,7 @@ namespace DAW_Project.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             var author = _authorRepository.GetById(id);
@@ -59,6 +61,7 @@ namespace DAW_Project.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> Update(int id, Author newauthor)
         {
             var author = _authorRepository.GetById(id);
