@@ -53,6 +53,9 @@ namespace DAW_Project.Migrations
                     b.Property<string>("Genre")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("PublisherId")
                         .HasColumnType("int");
 

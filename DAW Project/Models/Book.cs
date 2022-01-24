@@ -8,6 +8,7 @@ namespace DAW_Project.Models
     public class Book
     {
         public int Id { get; set; }
+        public String Name { get; set; }
         public String Genre { get; set; }
         public DateTime ReleaseDate { get; set; }
         public Author Author { get; set; }

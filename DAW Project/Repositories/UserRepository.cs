@@ -19,5 +19,10 @@ namespace DAW_Project.Repositories
         {
             return _context.Users.Where(u => u.username.Contains(text)).ToList();
         }
+
+        public User GetExactMatch(String username)
+        {
+            return _context.Users.Where(u => u.username.Equals(username)).FirstOrDefault();
+        }
     }
 }

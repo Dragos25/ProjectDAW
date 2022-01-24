@@ -18,15 +18,29 @@ namespace DAW_Project.Controllers
 
         private IApplicationDbContext _context;
         private IBookRepository _bookRepository;
-        public BookController(IApplicationDbContext context, IBookRepository BookRepository)
+        private IPublisherRepository _publisherRepository;
+        private IAuthorRepository _authorRepository;
+        public BookController(IApplicationDbContext context, IBookRepository BookRepository, IPublisherRepository publisherRepository, IAuthorRepository authorRepository)
         {
             _context = context;
             _bookRepository = BookRepository;
+            _publisherRepository = publisherRepository;
+            _authorRepository = authorRepository;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Book book)
+        public async Task<IActionResult> Create(Book book, int? authorId, int? publisherId)
         {
+            if (authorId == null || publisherId == null)
+                return BadRequest("missing authorId or publisherId");
+            Author author = _authorRepository.GetById(authorId.Value);
+            if (author == null)
+                return NotFound("Author not found");
+            Publisher publisher = _publisherRepository.GetById(publisherId.Value);
+            if (publisher == null)
+                return NotFound("Publisher not found");
+            book.Author = author;
+            book.Publisher = publisher;
             _bookRepository.Add(book);
             await _context.SaveChanges();
             return Ok(book.Id);
@@ -65,6 +79,7 @@ namespace DAW_Project.Controllers
             if (book == null) return NotFound();
             else
             {
+                book.Name = newbook.Name;
                 book.Genre = newbook.Genre;
                 book.ReleaseDate = newbook.ReleaseDate;
                 

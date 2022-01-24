@@ -27,9 +27,24 @@ namespace DAW_Project.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(User user)
         {
+            User existing = _userRepository.GetExactMatch(user.username);
+            if (existing != null) return BadRequest("Username-ul deja exista");
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(user.password);
+            user.password = passwordHash;
             _userRepository.Add(user);
             await _context.SaveChanges();
             return Ok(user.Id);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(User user)
+        {
+            User existing = _userRepository.GetExactMatch(user.username);
+            if (existing == null) return BadRequest("Username-ul nu exista");
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(user.password);
+            if (BCrypt.Net.BCrypt.Verify(user.password, existing.password)) return Ok("Ai fost logat!");
+            return BadRequest(passwordHash+"Parola gresita");
+
         }
 
         [HttpGet]

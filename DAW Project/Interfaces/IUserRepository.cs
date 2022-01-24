@@ -9,5 +9,6 @@ namespace DAW_Project.Interfaces
     public interface IUserRepository : IGenericRepository<User>
     {
         IEnumerable<User> GetUserByUsername(String text);
+        User GetExactMatch(String username);
     }
 }
