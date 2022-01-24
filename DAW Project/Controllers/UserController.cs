@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DAW_Project.Authentication;
+using DAW_Project.Constants;
 using DAW_Project.Context;
 using DAW_Project.Interfaces;
 using DAW_Project.Models;
@@ -49,7 +50,14 @@ namespace DAW_Project.Controllers
             User existing = _userRepository.GetExactMatch(user.username);
             if (existing == null) return BadRequest("Username-ul nu exista");
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(user.password);
-            if (BCrypt.Net.BCrypt.Verify(user.password, existing.password)) return Ok(Util.GenerateToken(existing, _config));
+
+            if (BCrypt.Net.BCrypt.Verify(user.password, existing.password))
+            {
+                String tokenstring = Util.GenerateToken(existing, _config);
+                Tokenclass token = new Tokenclass();
+                token.token = tokenstring;
+                return Ok(token); 
+            }
             return BadRequest("Parola gresita");
 
         }
