@@ -1,0 +1,1 @@
+This project is made in ASP .Net Core. It's a the backend of a book application repository. It's built using a repository pattern and a code first approach. It also has built in authorization using a JWT token. This project also has a frontend built in Angular which can also be found on my profile.
